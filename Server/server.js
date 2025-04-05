@@ -51,7 +51,7 @@ io.on('connection', (socket) => {
     });
 });
 
-const PORT = 3000; // Hardcoded port
+const PORT = process.env.PORT || 3000; // Hardcoded port
 const database = process.env.MONGO_URL || 'mongodb+srv://rohanad777:Rohan757@cluster0.vhfnl.mongodb.net/chatty'; // Keep this from .env for security
 mongoose.connect(database)
     .then(() => console.log('Connected to the database'))
