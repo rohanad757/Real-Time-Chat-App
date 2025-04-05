@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 const Schema = mongoose.Schema;
 const objectId = Schema.Types.ObjectId;
-import bcrypt from 'bcrypt';
+import bcrypt from 'bcryptjs';
 
 const userSchema = new Schema({
     email : {type: String, required: [true, 'Email is required'], unique: true},
