@@ -17,7 +17,7 @@ const app = express();
 const httpServer = createServer(app);
 const io = new Server(httpServer, {
     cors: {
-        origin: process.env.ORIGIN || '*', 
+        origin: 'https://rohanad757-chatapp-frontend.onrender.com', 
         methods: ['GET', 'POST'],
         credentials: true,
     },
