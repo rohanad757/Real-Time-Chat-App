@@ -1,0 +1,12 @@
+export const HOST = import.meta.env.VITE_SERVER;
+export const AUTH_ROUTE = '/api/auth';
+export const SIGNUP_ROUTE = `${AUTH_ROUTE}/signup`;
+export const LOGIN_ROUTE = `${AUTH_ROUTE}/login`;
+export const CURR_USER = `${AUTH_ROUTE}/me`;
+export const UPDATE_ROUTE = `${AUTH_ROUTE}/update`;
+export const GET_IMAGE = `${AUTH_ROUTE}/image`;
+export const REMOVE_IMG = `${AUTH_ROUTE}/remove-img`;
+export const LOGOUT_ROUTE = `${AUTH_ROUTE}/logout`;
+export const SEARCH_CONTACT = '/api/contact/search';
+export const POST_MSG = '/api/message/send/';
+export const GET_MSG = '/api/message/get/';
