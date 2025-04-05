@@ -5,7 +5,7 @@ import { toast } from "sonner";
 import { io } from "socket.io-client";
 
 // Use environment variable for the backend URL
-const BACKEND_URL = import.meta.env.VITE_SERVER || "https://real-time-chat-app-2-ynyz.onrender.com";
+const BACKEND_URL = import.meta.env.VITE_SERVER || "https://real-time-chat-app-3-9luu.onrender.com";
 
 const AppState = (props) => {
     const [user, setUser] = useState(null);
