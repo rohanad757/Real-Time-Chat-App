@@ -26,7 +26,7 @@ const io = new Server(httpServer, {
 app.use(express.json());
 app.use(cookieParser());
 app.use(cors({
-    origin: process.env.ORIGIN || '*', 
+    origin: 'https://rohanad757-chatapp-frontend.onrender.com', 
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
     credentials: true,
 }));
