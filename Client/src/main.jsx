@@ -13,7 +13,7 @@ import AppState from './Context/AppState.jsx';
 const Router = createBrowserRouter([
   {
     path: '/',
-    element: <><Toaster position="bottom-right" closeButton/><App /></>,
+    element: <><Toaster position="bottom-right" closeButton/><Auth /></>,
   },
   {
     path: '/auth',
