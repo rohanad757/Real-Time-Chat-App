@@ -17,7 +17,7 @@ const app = express();
 const httpServer = createServer(app);
 const io = new Server(httpServer, {
     cors: {
-        origin: process.env.ORIGIN || 'http://localhost:5173',
+        origin: process.env.ORIGIN || '*', 
         methods: ['GET', 'POST'],
         credentials: true,
     },
@@ -26,7 +26,7 @@ const io = new Server(httpServer, {
 app.use(express.json());
 app.use(cookieParser());
 app.use(cors({
-    origin: process.env.ORIGIN || 'http://localhost:5173',
+    origin: process.env.ORIGIN || '*', // Allow all origins temporarily
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
     credentials: true,
 }));
@@ -35,24 +35,21 @@ app.use('/api/auth', router);
 app.use('/api/contact', contactRoute);
 app.use('/api/message', messageRouter);
 
-// Pass io to messageController
 setIo(io);
 
 io.on('connection', (socket) => {
     console.log('New client connected with id:', socket.id);
-
     socket.on('join', (userId) => {
         socket.join(userId);
         console.log(`User ${userId} joined room ${userId}`);
     });
-
     socket.on('disconnect', () => {
         console.log('Client disconnected with id:', socket.id);
     });
 });
 
-const PORT = process.env.PORT || 3000; // Hardcoded port
-const database = process.env.MONGO_URL || 'mongodb+srv://rohanad777:Rohan757@cluster0.vhfnl.mongodb.net/chatty'; // Keep this from .env for security
+const PORT = process.env.PORT || 3000;
+const database = process.env.MONGO_URL || 'mongodb+srv://rohanad777:Rohan757@cluster0.vhfnl.mongodb.net/chatty';
 mongoose.connect(database)
     .then(() => console.log('Connected to the database'))
     .catch((err) => console.log(err));
