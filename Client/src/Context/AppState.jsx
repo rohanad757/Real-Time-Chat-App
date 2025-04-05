@@ -4,13 +4,16 @@ import axios from "axios";
 import { toast } from "sonner";
 import { io } from "socket.io-client";
 
+// Use environment variable for the backend URL
+const BACKEND_URL = import.meta.env.VITE_URL || "https://real-time-chat-app-2-ynyz.onrender.com";
+
 const AppState = (props) => {
     const [user, setUser] = useState(null);
     const [socket, setSocket] = useState(null);
     const [messages, setMessages] = useState({});
 
     useEffect(() => {
-        const newSocket = io("http://localhost:3000", { withCredentials: true });
+        const newSocket = io(BACKEND_URL, { withCredentials: true });
         setSocket(newSocket);
 
         newSocket.on('connect', () => {
@@ -44,7 +47,7 @@ const AppState = (props) => {
     const handleReg = async (email, password, firstName) => {
         try {
             const res = await axios.post(
-                "http://localhost:3000/api/auth/signup",
+                `${BACKEND_URL}/api/auth/signup`,
                 { email, password, firstName },
                 { headers: { "Content-Type": "application/json" }, withCredentials: true }
             );
@@ -64,7 +67,7 @@ const AppState = (props) => {
     const handleLog = async (email, password) => {
         try {
             const res = await axios.post(
-                "http://localhost:3000/api/auth/login",
+                `${BACKEND_URL}/api/auth/login`,
                 { email, password },
                 { headers: { "Content-Type": "application/json" }, withCredentials: true }
             );
@@ -83,37 +86,31 @@ const AppState = (props) => {
 
     const fetchUser = async () => {
         try {
-            // console.log("Fetching current user from: http://localhost:3000/api/auth/me");
-            const res = await axios.get("http://localhost:3000/api/auth/me", {
+            const res = await axios.get(`${BACKEND_URL}/api/auth/me`, {
                 headers: { "Content-Type": "application/json" },
                 withCredentials: true,
             });
-            // console.log("Fetch user response:", res.status, res.data);
             if (res.status === 200) {
                 setUser(res.data);
                 return res.data;
             }
             return false;
         } catch (error) {
-            // console.log("Error in Fetching User:", error.response?.data || error.message);
             return false;
         }
     };
 
     const fetchImage = async () => {
         try {
-            // console.log("Fetching image from: http://localhost:3000/api/auth/image");
-            const res = await axios.get("http://localhost:3000/api/auth/image", {
+            const res = await axios.get(`${BACKEND_URL}/api/auth/image`, {
                 headers: { "Content-Type": "application/json" },
                 withCredentials: true,
             });
-            // console.log("Fetch image response:", res.status, res.data);
             if (res.status === 200) {
                 return res.data;
             }
             return false;
         } catch (error) {
-            // console.log("Error in Fetching Image:", error.response?.data || error.message);
             return false;
         }
     };
@@ -124,7 +121,7 @@ const AppState = (props) => {
             formData.append('firstName', firstName);
             formData.append('lastName', lastName);
             formData.append('image', image);
-            const res = await axios.put("http://localhost:3000/api/auth/update", formData, {
+            const res = await axios.put(`${BACKEND_URL}/api/auth/update`, formData, {
                 headers: { "Content-Type": "multipart/form-data" },
                 withCredentials: true,
             });
@@ -142,7 +139,7 @@ const AppState = (props) => {
 
     const removeImage = async () => {
         try {
-            const res = await axios.put("http://localhost:3000/api/auth/remove-img", {}, {
+            const res = await axios.put(`${BACKEND_URL}/api/auth/remove-img`, {}, {
                 headers: { "Content-Type": "application/json" },
                 withCredentials: true,
             });
@@ -158,7 +155,7 @@ const AppState = (props) => {
 
     const logout = async () => {
         try {
-            const res = await axios.get("http://localhost:3000/api/auth/logout", {
+            const res = await axios.get(`${BACKEND_URL}/api/auth/logout`, {
                 headers: { "Content-Type": "application/json" },
                 withCredentials: true,
             });
@@ -174,7 +171,7 @@ const AppState = (props) => {
 
     const searchUser = async (param) => {
         try {
-            const response = await axios.post("http://localhost:3000/api/contact/search", { search: param }, {
+            const response = await axios.post(`${BACKEND_URL}/api/contact/search`, { search: param }, {
                 headers: { "Content-Type": "application/json" },
                 withCredentials: true,
             });
@@ -191,7 +188,7 @@ const AppState = (props) => {
 
     const fetchAllContacts = async () => {
         try {
-            const response = await axios.get("http://localhost:3000/api/contact/search", {
+            const response = await axios.get(`${BACKEND_URL}/api/contact/search`, {
                 headers: { "Content-Type": "application/json" },
                 withCredentials: true,
             });
@@ -208,7 +205,7 @@ const AppState = (props) => {
 
     const postMessage = async (message, receiverId) => {
         try {
-            const res = await axios.post(`http://localhost:3000/api/message/send/${receiverId}`, { message }, {
+            const res = await axios.post(`${BACKEND_URL}/api/message/send/${receiverId}`, { message }, {
                 headers: { "Content-Type": "application/json" },
                 withCredentials: true,
             });
@@ -221,7 +218,7 @@ const AppState = (props) => {
 
     const getMsg = async (receiverId) => {
         try {
-            const res = await axios.get(`http://localhost:3000/api/message/get/${receiverId}`, {
+            const res = await axios.get(`${BACKEND_URL}/api/message/get/${receiverId}`, {
                 headers: { "Content-Type": "application/json" },
                 withCredentials: true,
             });
