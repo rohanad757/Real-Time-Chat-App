@@ -1,6 +1,6 @@
 import User from "../models/userModel.js";
 import jwt from 'jsonwebtoken';
-import bcrypt from 'bcrypt';
+import bcrypt from 'bcryptjs';
 
 const maxAge = 3 * 24 * 60 * 60;
 const createToken = ( id ) => {
